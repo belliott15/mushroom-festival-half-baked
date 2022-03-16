@@ -5,6 +5,13 @@ export function renderMushroom() {
     return div;
 }
 
+export function renderBerry() {
+    const div = document.createElement('div');
+    div.classList.add('berry');
+
+    return div;
+}
+
 export function renderFriend(friend) {
     const div = document.createElement('div');
     const nameEl = document.createElement('p');
@@ -26,6 +33,14 @@ export function renderFriend(friend) {
 
     if (friend.satisfaction === 3) {
         emojiEl.textContent = '😀';
+    }
+
+    if (friend.satisfaction === 4) {
+        emojiEl.textContent = '🤢';
+    }
+
+    if (friend.satisfaction === 5) {
+        emojiEl.textContent = '🤮';
     }
 
     div.append(nameEl, emojiEl);

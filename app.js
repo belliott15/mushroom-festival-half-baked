@@ -1,5 +1,5 @@
 // import functions and grab DOM elements
-import { renderMushroom, renderFriend } from './render-utils.js';
+import { renderMushroom, renderFriend, renderBerry } from './render-utils.js';
 
 const friendsEl = document.querySelector('.friends');
 const friendInputEl = document.getElementById('friend-input');
@@ -9,6 +9,7 @@ const addFriendButton = document.getElementById('add-friend-button');
 // initialize state
 
 let mushroomCount = 3;
+let berryCount = 1;
 
 const friendData = [
     {
@@ -30,10 +31,13 @@ const friendData = [
 ];
 
 addMushroomButton.addEventListener('click', () => {
-    if (Math.random() > 0.5) {
+    if (Math.random() < 0.33) {
         alert('found a mushroom!');
-
         mushroomCount++;
+        displayMushrooms();
+    } else if (Math.random() > 0.66){
+        alert('found a berry!');
+        berryCount++;
         displayMushrooms();
     } else {
         alert('no luck!');
@@ -42,15 +46,22 @@ addMushroomButton.addEventListener('click', () => {
 
 addFriendButton.addEventListener('click', () => {
     // get the name from the input
-    const friend = friendInputEl.value;
+    if (friendInputEl.value === '') {
+        const friendRandom = Math.floor(Math.random() * 10000);
+        const friendRandomObj = { name: `Friend #${friendRandom}`, satisfaction: 1 };
+        friendData.push(friendRandomObj);
+        displayFriends();
+    } else {
+        const friend = friendInputEl.value;
     // create a new friend object
-    const friendObj = { name: friend, satisfaction: 1 };
+        const friendObj = { name: friend, satisfaction: 1 };
     // push it into the friends state array, passed in as an argument
-    friendData.push(friendObj);
+        friendData.push(friendObj);
     // reset the input
-    friendInputEl.value = '';
+        friendInputEl.value = '';
     // display all the friends (use a function here)
-    displayFriends();
+        displayFriends();
+    }
 });
 
 function displayFriends() {
@@ -68,6 +79,9 @@ function displayFriends() {
             if (friend.satisfaction < 3 && mushroomCount > 0) {
                 friend.satisfaction++;
                 mushroomCount--;
+            } else if (friend.satisfaction >= 3 && berryCount > 0){
+                friend.satisfaction ++;
+                berryCount--;
             }
         //       then display your friends and mushrooms with the updated state
             displayFriends();
@@ -87,7 +101,10 @@ function displayMushrooms() {
         const mushroomsImg = renderMushroom();
         mushroomsEl.append(mushroomsImg);
     }
+    for (let i = 0; i < berryCount; i++) {
+        const berryImg = renderBerry();
+        mushroomsEl.append(berryImg);
+    }
 }
-
 displayFriends();
 displayMushrooms();
