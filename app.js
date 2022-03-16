@@ -1,5 +1,5 @@
 // import functions and grab DOM elements
-import { renderMushroom, renderFriend, renderBerry } from './render-utils.js';
+import { renderMushroom, renderFriend, renderBerry, renderPoison } from './render-utils.js';
 
 const friendsEl = document.querySelector('.friends');
 const friendInputEl = document.getElementById('friend-input');
@@ -10,6 +10,7 @@ const addFriendButton = document.getElementById('add-friend-button');
 
 let mushroomCount = 3;
 let berryCount = 1;
+let poisonCount = 1;
 
 const friendData = [
     {
@@ -32,13 +33,17 @@ const friendData = [
 
 addMushroomButton.addEventListener('click', () => {
     if (Math.random() < 0.33) {
-        alert('found a mushroom!');
+        alert('You found a mushroom!');
         mushroomCount++;
-        displayMushrooms();
+        displayFood();
     } else if (Math.random() > 0.66){
-        alert('found a berry!');
+        alert('You found a berry!');
         berryCount++;
-        displayMushrooms();
+        displayFood();
+    } else if (Math.random() > 0.88) {
+        alert('You found a special mushroom');
+        poisonCount++;
+        displayFood();
     } else {
         alert('no luck!');
     }
@@ -85,7 +90,7 @@ function displayFriends() {
             }
         //       then display your friends and mushrooms with the updated state
             displayFriends();
-            displayMushrooms();
+            displayFood();
         });
 
         // append the friendEl to the friends list in DOM
@@ -93,7 +98,7 @@ function displayFriends() {
     }
 }
 
-function displayMushrooms() {
+function displayFood() {
     // clear out the mushroom div
     mushroomsEl.textContent = '';
     for (let i = 0; i < mushroomCount; i++) {
@@ -105,6 +110,11 @@ function displayMushrooms() {
         const berryImg = renderBerry();
         mushroomsEl.append(berryImg);
     }
+    for (let i = 0; i < poisonCount; i++) {
+        const poisonImg = renderPoison();
+        mushroomsEl.append(poisonImg);
+    }
+
 }
 displayFriends();
-displayMushrooms();
+displayFood();

@@ -210,5 +210,13 @@ footer {
     height: 100px;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url(/assets/berry.png)
+    background-image: url('/assets/berry.png')
+}
+
+.poison {
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('/assets/chanterelle.png')
 }
