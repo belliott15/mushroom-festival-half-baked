@@ -67,7 +67,6 @@ addFriendButton.addEventListener('click', () => {
     // display all the friends (use a function here)
         displayFriends();
     }
-    console.log(friendData);
 });
 
 function displayFriends() {
