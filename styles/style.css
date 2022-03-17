@@ -147,6 +147,7 @@ footer {
     display: flex;
     flex-wrap: wrap-reverse;
     justify-content: flex-end;
+    margin: 30px;
 }
 
 .friend {
@@ -202,4 +203,28 @@ footer {
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url('../assets/porcini.png')
+}
+
+.berry {
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('/assets/berry.png')
+}
+
+.poison {
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('/assets/chanterelle.png')
+}
+
+.dead {
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('/assets/x-out.png')
 }
