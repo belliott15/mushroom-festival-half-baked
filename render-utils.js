@@ -50,6 +50,10 @@ export function renderFriend(friend) {
         emojiEl.textContent = '🤮';
     }
 
+    if (friend.satisfaction === 0) {
+        emojiEl.textContent = '💀';
+    }
+
     div.append(nameEl, emojiEl);
     return div;
 }

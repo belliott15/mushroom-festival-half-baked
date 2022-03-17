@@ -40,7 +40,7 @@ addMushroomButton.addEventListener('click', () => {
         alert('You found a berry!');
         berryCount++;
         displayFood();
-    } else if (Math.random() > 0.88) {
+    } else if (Math.random() > 0.75) {
         alert('You found a special mushroom');
         poisonCount++;
         displayFood();
@@ -59,7 +59,7 @@ addFriendButton.addEventListener('click', () => {
     } else {
         const friend = friendInputEl.value;
     // create a new friend object
-        const friendObj = { name: friend, satisfaction: 1 };
+        const friendObj = { name: friend, satisfaction: 1, resistance: true };
     // push it into the friends state array, passed in as an argument
         friendData.push(friendObj);
     // reset the input
@@ -67,6 +67,7 @@ addFriendButton.addEventListener('click', () => {
     // display all the friends (use a function here)
         displayFriends();
     }
+    console.log(friendData);
 });
 
 function displayFriends() {
@@ -78,21 +79,29 @@ function displayFriends() {
         const friendEl = renderFriend(friend);
         // this is a clickable list, so . . .
         //     add an event listener to each friend
-        friendEl.addEventListener('click', () => {
+        if (friend.satisfaction === 0) {
+            friendEl.classList.add('dead');
+        } else {
+            friendEl.addEventListener('click', () => {
         //      and if the friend's satisfaction level is below 3 and you have mushrooms left
         //      increment the friends satisfaction and decrement your mushrooms
-            if (friend.satisfaction < 3 && mushroomCount > 0) {
-                friend.satisfaction++;
-                mushroomCount--;
-            } else if (friend.satisfaction >= 3 && berryCount > 0){
-                friend.satisfaction ++;
-                berryCount--;
-            }
-        //       then display your friends and mushrooms with the updated state
-            displayFriends();
-            displayFood();
-        });
+                if (friend.satisfaction < 3 && mushroomCount > 0) {
+                    friend.satisfaction++;
+                    mushroomCount--;
+                } else if (friend.satisfaction >= 3 && berryCount > 0){
+                    friend.satisfaction ++;
+                    berryCount--;
+                } else if (friend.resistance !== true && poisonCount > 0){
+                    friend.satisfaction--;
+                    poisonCount--;
+                } 
+                
 
+        //       then display your friends and mushrooms with the updated state
+                displayFriends();
+                displayFood();
+            });
+        }
         // append the friendEl to the friends list in DOM
         friendsEl.append(friendEl);
     }
@@ -118,3 +127,11 @@ function displayFood() {
 }
 displayFriends();
 displayFood();
+
+// const poisonResistance = Math.ceil(Math.random() * 2);
+// if (poisonResistance === 1){
+//     friendData.resistance = true;
+// } else {
+//     friendData.resistance = false;
+// }
+// console.log(poisonResistance);
