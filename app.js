@@ -94,7 +94,9 @@ function displayFriends() {
                 } else if (friend.resistance !== true && poisonCount > 0){
                     friend.satisfaction--;
                     poisonCount--;
-                } 
+                } else {
+                    alert('Go forage for other supplies');
+                }
                 
 
         //       then display your friends and mushrooms with the updated state
